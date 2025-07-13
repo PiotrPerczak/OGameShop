@@ -3,7 +3,7 @@ import logo from "../assets/logo.svg";
 import lens from "../assets/lens.svg";
 
 const Navbar: React.FC = () => (
-  <header className="bg-white">
+  <header className="bg-slate-100">
     <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
       <a className="block text-teal-600" href="#">
         <span className="sr-only">Home</span>
