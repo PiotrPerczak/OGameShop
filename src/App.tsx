@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         <Navbar />
       </div>
       <ProductList />
+      <Footer />
     </>
   );
 }
