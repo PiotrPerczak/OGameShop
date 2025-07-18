@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.svg";
+import basket from "../assets/basket.svg";
 
 const navigation = [
   { name: "PC", href: "#" },
@@ -40,14 +41,20 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-m/6 font-semibold text-gray-900"
+                className="text-xl font-semibold text-gray-900"
               >
                 {item.name}
               </a>
             ))}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm/6 font-semibold text-gray-900">
+          <div className="hidden gap-4 lg:flex lg:flex-1 lg:justify-end">
+            <button>
+              <img width="40" src={basket} alt="Shopping Cart" className="" />
+            </button>
+            <a
+              href="#"
+              className="text-xl flex justify-center items-center font-semibold text-gray-900"
+            >
               Log in <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -93,6 +100,14 @@ export default function Navbar() {
                   >
                     Log in
                   </a>
+                  <button>
+                    <img
+                      width="40"
+                      src={basket}
+                      alt="Shopping Cart"
+                      className="mr-4"
+                    />
+                  </button>
                 </div>
               </div>
             </div>

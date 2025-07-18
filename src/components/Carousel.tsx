@@ -37,7 +37,7 @@ export function CarouselPlugin() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-8/12 mt-25"
+      className="w-9/12 mt-25"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >

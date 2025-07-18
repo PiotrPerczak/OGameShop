@@ -27,18 +27,15 @@ const ProductList: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-24 ">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="py-18 ">
+      <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <h2 className="font-manrope font-bold text-3xl min-[400px]:text-4xl text-black mb-8 max-lg:text-center">
           PC Games
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {loading
             ? skeletonArray.map((_, idx) => (
-                <div
-                  key={idx}
-                  className="max-w-[384px] mx-auto animate-pulse"
-                >
+                <div key={idx} className="max-w-[384px] mx-auto animate-pulse">
                   <div className="w-full max-w-sm aspect-square rounded-xl bg-gray-200 mb-5" />
                   <div className="flex items-center justify-between">
                     <div>
@@ -51,11 +48,7 @@ const ProductList: React.FC = () => {
                 </div>
               ))
             : games.map((game) => (
-                <a
-                  key={game.id}
-                  href="#"
-                  className="max-w-[384px] mx-auto"
-                >
+                <a key={game.id} href="#" className="max-w-[384px] mx-auto">
                   <div className="w-full max-w-sm aspect-square">
                     <img
                       src={game.background_image}
@@ -75,9 +68,7 @@ const ProductList: React.FC = () => {
                         Rating: {game.rating}
                       </h6>
                     </div>
-                    <button
-                      className="p-2 min-[400px]:p-4 rounded-full bg-white border border-gray-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-400 hover:bg-gray-50"
-                    >
+                    <button className="p-2 min-[400px]:p-4 rounded-full bg-white border border-gray-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-cyan-700 hover:bg-gray-50">
                       <svg
                         className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                         xmlns="http://www.w3.org/2000/svg"

@@ -3,7 +3,9 @@ import logo from '../assets/logo.svg'
 
 const Footer: React.FC = () => (
   <footer className="">
-    <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
+    {/* Szara kreska nad footerem */}
+    <div className="w-full h-px bg-gray-300 mb-4" />
+    <div className="relative mx-auto max-w-8xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
       <div className="absolute end-4 top-4 sm:end-6 sm:top-6 lg:end-8 lg:top-8">
         <a
           className="inline-block rounded-full bg-blue-600 p-2 text-white shadow-sm transition hover:bg-blue-500 sm:p-3 lg:p-4"
