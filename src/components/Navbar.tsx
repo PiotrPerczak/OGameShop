@@ -10,7 +10,11 @@ const navigation = [
   { name: "Xbox", href: "#" },
 ];
 
-export default function Navbar() {
+type NavbarProps = {
+  onBasketClick: () => void;
+};
+
+export default function Navbar({ onBasketClick }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -49,7 +53,13 @@ export default function Navbar() {
           </div>
           <div className="hidden gap-4 lg:flex lg:flex-1 lg:justify-end">
             <button>
-              <img width="40" src={basket} alt="Shopping Cart" className="" />
+              <img
+                width="40"
+                src={basket}
+                alt="Shopping Cart"
+                className="cursor-pointer"
+                onClick={onBasketClick}
+              />
             </button>
             <a
               href="#"
@@ -105,7 +115,8 @@ export default function Navbar() {
                       width="40"
                       src={basket}
                       alt="Shopping Cart"
-                      className="mr-4"
+                      className="mr-4 cursor-pointer"
+                      onClick={onBasketClick}
                     />
                   </button>
                 </div>

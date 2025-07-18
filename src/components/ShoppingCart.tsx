@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -48,9 +47,12 @@ const products = [
   },
 ];
 
-export default function Scart() {
-  const [open, setOpen] = useState(true);
+type ShoppingCartProps = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+};
 
+export default function ShoppingCart({ open, setOpen }: ShoppingCartProps) {
   return (
     <div>
       <button
