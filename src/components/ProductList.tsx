@@ -1,4 +1,7 @@
+
+
 import React, { useEffect, useState } from "react";
+import type { CartGame } from "../App";
 
 type Game = {
   id: number;
@@ -8,11 +11,16 @@ type Game = {
   released: string;
 };
 
+type ProductListProps = {
+  addToCart: (game: Omit<CartGame, "quantity">) => void;
+};
+
 const API_KEY = "a9da7b7a0db84f3883518ed837145728";
 
 const skeletonArray = Array.from({ length: 9 });
 
-const ProductList: React.FC = () => {
+
+const ProductList: React.FC<ProductListProps> = ({ addToCart }) => {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -64,11 +72,23 @@ const ProductList: React.FC = () => {
                       <h6 className="font-semibold text-base leading-8 text-gray-600">
                         Released: {game.released}
                       </h6>
-                      <h6 className="font-semibold text-xl leading-8 text-indigo-600">
+                      <h6 className="font-semibold text-xl leading-8 text-blue-600">
                         Rating: {game.rating}
                       </h6>
                     </div>
-                    <button className="p-2 min-[400px]:p-4 rounded-full bg-white border border-gray-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-cyan-700 hover:bg-gray-50">
+                    <button
+                      className="p-2 min-[400px]:p-4 rounded-full bg-white border border-gray-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-cyan-700 hover:bg-gray-50"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToCart({
+                          id: game.id,
+                          name: game.name,
+                          background_image: game.background_image,
+                          rating: game.rating,
+                          released: game.released,
+                        });
+                      }}
+                    >
                       <svg
                         className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
                         xmlns="http://www.w3.org/2000/svg"

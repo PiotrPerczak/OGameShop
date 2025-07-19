@@ -18,8 +18,8 @@ export default function Navbar({ onBasketClick }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-white">
-      <header className="absolute inset-x-0 top-0 z-50">
+    <div className="">
+      <header className="fixed top-0 left-0 right-0 z-30 bg-white/60 backdrop-blur-md shadow-sm border-b border-gray-200">
         <nav
           aria-label="Global"
           className="flex items-center justify-between p-6 lg:px-8"
@@ -41,15 +41,9 @@ export default function Navbar({ onBasketClick }: NavbarProps) {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-xl font-semibold text-gray-900"
-              >
-                {item.name}
-              </a>
-            ))}
+            <a className="text-xl font-semibold text-orange-900 transition-colors duration-200 cursor-pointer hover:text-orange-600 hover:underline">PC</a>
+            <a className="text-xl font-semibold text-blue-900 transition-colors duration-200 cursor-pointer hover:text-blue-600 hover:underline">PlayStation</a>
+            <a className="text-xl font-semibold text-green-900 transition-colors duration-200 cursor-pointer hover:text-green-600 hover:underline">Xbox</a>
           </div>
           <div className="hidden gap-4 lg:flex lg:flex-1 lg:justify-end">
             <button>
@@ -74,7 +68,7 @@ export default function Navbar({ onBasketClick }: NavbarProps) {
           onClose={setMobileMenuOpen}
           className="lg:hidden"
         >
-          <div className="fixed inset-0 z-50" />
+          <div className="fixed inset-0 z-10" />
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
