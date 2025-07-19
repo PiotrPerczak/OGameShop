@@ -19,8 +19,8 @@ export type CartGame = {
   id: number;
   name: string;
   background_image: string;
-  rating: number;
-  released: string;
+  rating?: number;
+  released?: string;
   quantity: number;
 };
 
@@ -57,7 +57,7 @@ function App() {
   };
 
   // Open modal with game details (from product list or search)
-  const openGameModal = (game: unknown) => {
+  const openGameModal = (game: CarouselGame) => {
     setModalGame(game);
     setModalOpen(true);
   };

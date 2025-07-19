@@ -1,6 +1,5 @@
 
 // Modal component for displaying detailed game info and allowing add to cart
-import React from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import type { Game } from "./ProductList";
 

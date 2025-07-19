@@ -1,7 +1,5 @@
-
 // Carousel component for displaying featured games with autoplay and click-to-modal support
 "use client";
-
 
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
@@ -15,10 +13,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-
 // RAWG API key for fetching games
 const RAWG_API_KEY = "a9da7b7a0db84f3883518ed837145728";
-
 
 // Game type for carousel and modal
 export type Game = {
@@ -29,13 +25,13 @@ export type Game = {
   released?: string;
 };
 
-
+// Alias for Game type used specifically in carousel context
+export type CarouselGame = Game;
 
 // Props for CarouselPlugin: allows handling game click (e.g. open modal)
 type CarouselPluginProps = {
   onGameClick?: (game: Game) => void;
 };
-
 
 export function CarouselPlugin({ onGameClick }: CarouselPluginProps) {
   // Ref for the autoplay plugin
@@ -47,9 +43,7 @@ export function CarouselPlugin({ onGameClick }: CarouselPluginProps) {
 
   // Fetch featured games from RAWG API on mount
   React.useEffect(() => {
-    fetch(
-      `https://api.rawg.io/api/games?key=${RAWG_API_KEY}&page_size=5`
-    )
+    fetch(`https://api.rawg.io/api/games?key=${RAWG_API_KEY}&page_size=5`)
       .then((res) => res.json())
       .then((data) => setGames(data.results || []));
   }, []);
@@ -67,7 +61,10 @@ export function CarouselPlugin({ onGameClick }: CarouselPluginProps) {
           <CarouselItem key={game.id}>
             <div className="p-1">
               {/* Card for each game, opens modal on click */}
-              <Card className="bg-black cursor-pointer" onClick={() => onGameClick && onGameClick(game)}>
+              <Card
+                className="bg-black cursor-pointer"
+                onClick={() => onGameClick && onGameClick(game)}
+              >
                 <CardContent className="relative p-0">
                   <img
                     src={game.background_image}
