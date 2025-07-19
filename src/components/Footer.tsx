@@ -1,5 +1,5 @@
-import React from "react"
-import logo from '../assets/logo.svg'
+import React from "react";
+import logo from "../assets/logo.svg";
 
 const Footer: React.FC = () => (
   <footer className="">
@@ -7,9 +7,9 @@ const Footer: React.FC = () => (
     <div className="w-full h-px bg-gray-300 mb-4" />
     <div className="relative mx-auto max-w-8xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
       <div className="absolute end-4 top-4 sm:end-6 sm:top-6 lg:end-8 lg:top-8">
-        <a
+        <button
           className="inline-block rounded-full bg-blue-600 p-2 text-white shadow-sm transition hover:bg-blue-500 sm:p-3 lg:p-4"
-          href="#"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <span className="sr-only">Back to top</span>
           <svg
@@ -24,36 +24,47 @@ const Footer: React.FC = () => (
               clipRule="evenodd"
             />
           </svg>
-        </a>
+        </button>
       </div>
 
       <div className="lg:flex lg:items-end lg:justify-between">
         <div>
           <div className="flex justify-center text-teal-600 lg:justify-start">
-            <img
-                  alt=""
-                  src={logo}
-                  className="h-14 w-auto"
-                />
+            <img alt="" src={logo} className="h-14 w-auto" />
           </div>
           <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt consequuntur amet culpa
-            cum itaque neque.
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt
+            consequuntur amet culpa cum itaque neque.
           </p>
         </div>
 
         <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:mt-0 lg:justify-end lg:gap-12">
           <li>
-            <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> About </a>
+            <a
+              className="text-gray-700 transition hover:text-gray-700/75"
+              href="https://portfolio-beta-lyart-23.vercel.app"
+            >
+              {" "}
+              Portfolio{" "}
+            </a>
           </li>
           <li>
-            <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Services </a>
+            <a
+              className="text-gray-700 transition hover:text-gray-700/75"
+              href="https://www.linkedin.com/in/piotr-perczak-8b6a01374/"
+            >
+              {" "}
+              LinkedIn{" "}
+            </a>
           </li>
           <li>
-            <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Projects </a>
-          </li>
-          <li>
-            <a className="text-gray-700 transition hover:text-gray-700/75" href="#"> Blog </a>
+            <a
+              className="text-gray-700 transition hover:text-gray-700/75"
+              href="https://github.com/PiotrPerczak"
+            >
+              {" "}
+              GitHub{" "}
+            </a>
           </li>
         </ul>
       </div>

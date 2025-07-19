@@ -1,3 +1,5 @@
+
+// Shopping cart modal component for displaying and managing cart items
 "use client";
 
 import {
@@ -9,8 +11,12 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 
+
+// Type for cart items
 import type { CartGame } from "../App";
 
+
+// Props for ShoppingCart: modal state, cart items, and remove handler
 type ShoppingCartProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -18,12 +24,13 @@ type ShoppingCartProps = {
   removeFromCart: (id: number) => void;
 };
 
+
 export default function ShoppingCart({ open, setOpen, cartItems, removeFromCart }: ShoppingCartProps) {
-  // Suma (możesz dodać ceny do gier jeśli chcesz)
-  // Tu przykładowo każda gra kosztuje 100
+  // Calculate subtotal (each game is $100 for demo purposes)
   const subtotal = cartItems.reduce((sum, item) => sum + 100 * item.quantity, 0);
   return (
     <div>
+      {/* Modal dialog for the shopping cart */}
       <Dialog open={open} onClose={setOpen} className="relative z-50">
         <DialogBackdrop
           transition
@@ -38,6 +45,7 @@ export default function ShoppingCart({ open, setOpen, cartItems, removeFromCart 
                 className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700"
               >
                 <div className="flex h-full flex-col overflow-y-auto bg-white shadow-xl">
+                  {/* Cart header with close button */}
                   <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                     <div className="flex items-start justify-between">
                       <DialogTitle className="text-lg font-medium text-gray-900">
@@ -56,6 +64,7 @@ export default function ShoppingCart({ open, setOpen, cartItems, removeFromCart 
                       </div>
                     </div>
 
+                    {/* Cart items list */}
                     <div className="mt-8">
                       <div className="flow-root">
                         <ul
@@ -67,6 +76,7 @@ export default function ShoppingCart({ open, setOpen, cartItems, removeFromCart 
                           ) : (
                             cartItems.map((product) => (
                               <li key={product.id} className="flex py-6">
+                                {/* Game image */}
                                 <div className="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
                                     alt={product.name}
@@ -75,6 +85,7 @@ export default function ShoppingCart({ open, setOpen, cartItems, removeFromCart 
                                   />
                                 </div>
 
+                                {/* Game info and remove button */}
                                 <div className="ml-4 flex flex-1 flex-col">
                                   <div>
                                     <div className="flex justify-between text-base font-medium text-gray-900">
@@ -109,6 +120,7 @@ export default function ShoppingCart({ open, setOpen, cartItems, removeFromCart 
                     </div>
                   </div>
 
+                  {/* Cart summary and actions */}
                   <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>

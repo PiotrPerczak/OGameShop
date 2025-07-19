@@ -1,21 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.svg";
 import basket from "../assets/basket.svg";
 
-const navigation = [
-  { name: "PC", href: "#" },
-  { name: "PlayStation", href: "#" },
-  { name: "Xbox", href: "#" },
-];
-
 type NavbarProps = {
   onBasketClick: () => void;
+  platform: "pc" | "playstation" | "xbox";
+  setPlatform: (platform: "pc" | "playstation" | "xbox") => void;
+  cartCount: number;
 };
 
-export default function Navbar({ onBasketClick }: NavbarProps) {
+export default function Navbar({
+  onBasketClick,
+  platform,
+  setPlatform,
+  cartCount,
+}: NavbarProps) {
+  const scrollToProductList = () => {
+    const el = document.getElementById("product-list-section");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [highlight, setHighlight] = useState(false);
+
+  // Animacja podświetlenia koszyka po zmianie cartCount
+  useEffect(() => {
+    if (cartCount > 0) {
+      setHighlight(true);
+      const timeout = setTimeout(() => setHighlight(false), 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [cartCount]);
 
   return (
     <div className="">
@@ -41,19 +57,61 @@ export default function Navbar({ onBasketClick }: NavbarProps) {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            <a className="text-xl font-semibold text-orange-900 transition-colors duration-200 cursor-pointer hover:text-orange-600 hover:underline">PC</a>
-            <a className="text-xl font-semibold text-blue-900 transition-colors duration-200 cursor-pointer hover:text-blue-600 hover:underline">PlayStation</a>
-            <a className="text-xl font-semibold text-green-900 transition-colors duration-200 cursor-pointer hover:text-green-600 hover:underline">Xbox</a>
+            <a
+              className={`text-xl font-semibold transition-colors duration-200 cursor-pointer hover:text-orange-600 hover:underline ${
+                platform === "pc"
+                  ? "text-orange-900 underline"
+                  : "text-orange-900"
+              }`}
+              onClick={() => {
+                setPlatform("pc");
+                setTimeout(scrollToProductList, 50);
+              }}
+            >
+              PC
+            </a>
+            <a
+              className={`text-xl font-semibold transition-colors duration-200 cursor-pointer hover:text-blue-600 hover:underline ${
+                platform === "playstation"
+                  ? "text-blue-900 underline"
+                  : "text-blue-900"
+              }`}
+              onClick={() => {
+                setPlatform("playstation");
+                setTimeout(scrollToProductList, 50);
+              }}
+            >
+              PlayStation
+            </a>
+            <a
+              className={`text-xl font-semibold transition-colors duration-200 cursor-pointer hover:text-green-600 hover:underline ${
+                platform === "xbox"
+                  ? "text-green-900 underline"
+                  : "text-green-900"
+              }`}
+              onClick={() => {
+                setPlatform("xbox");
+                setTimeout(scrollToProductList, 50);
+              }}
+            >
+              Xbox
+            </a>
           </div>
           <div className="hidden gap-4 lg:flex lg:flex-1 lg:justify-end">
-            <button>
+            <button className="relative" onClick={onBasketClick}>
               <img
                 width="40"
                 src={basket}
                 alt="Shopping Cart"
-                className="cursor-pointer"
-                onClick={onBasketClick}
+                className={`cursor-pointer transition-shadow duration-300 ${
+                  highlight ? "ring-2 ring-blue-400 shadow-lg" : ""
+                }`}
               />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow-md animate-bounce min-w-[22px] text-center">
+                  {cartCount}
+                </span>
+              )}
             </button>
             <a
               href="#"
@@ -86,16 +144,37 @@ export default function Navbar({ onBasketClick }: NavbarProps) {
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
+                <div className=" grid space-y-2 py-6">
+                  <a
+                    className={`text-xl font-semibold transition-colors duration-200 cursor-pointer hover:text-orange-600 hover:underline ${
+                      platform === "pc"
+                        ? "text-orange-900 underline"
+                        : "text-orange-900"
+                    }`}
+                    onClick={() => setPlatform("pc")}
+                  >
+                    PC
+                  </a>
+                  <a
+                    className={`text-xl font-semibold transition-colors duration-200 cursor-pointer hover:text-blue-600 hover:underline ${
+                      platform === "playstation"
+                        ? "text-blue-900 underline"
+                        : "text-blue-900"
+                    }`}
+                    onClick={() => setPlatform("playstation")}
+                  >
+                    PlayStation
+                  </a>
+                  <a
+                    className={`text-xl font-semibold transition-colors duration-200 cursor-pointer hover:text-green-600 hover:underline ${
+                      platform === "xbox"
+                        ? "text-green-900 underline"
+                        : "text-green-900"
+                    }`}
+                    onClick={() => setPlatform("xbox")}
+                  >
+                    Xbox
+                  </a>
                 </div>
                 <div className="py-6">
                   <a
@@ -105,13 +184,21 @@ export default function Navbar({ onBasketClick }: NavbarProps) {
                     Log in
                   </a>
                   <button>
-                    <img
-                      width="40"
-                      src={basket}
-                      alt="Shopping Cart"
-                      className="mr-4 cursor-pointer"
-                      onClick={onBasketClick}
-                    />
+                    <button className="relative" onClick={onBasketClick}>
+                      <img
+                        width="40"
+                        src={basket}
+                        alt="Shopping Cart"
+                        className={`cursor-pointer transition-shadow duration-300 ${
+                          highlight ? "ring-2 ring-blue-400 shadow-lg" : ""
+                        }`}
+                      />
+                      {cartCount > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow-md animate-bounce min-w-[22px] text-center">
+                          {cartCount}
+                        </span>
+                      )}
+                    </button>
                   </button>
                 </div>
               </div>

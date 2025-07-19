@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from "react";
 import type { CartGame } from "../App";
 
-type Game = {
+
+
+export type Game = {
   id: number;
   name: string;
   background_image: string;
@@ -13,6 +15,8 @@ type Game = {
 
 type ProductListProps = {
   addToCart: (game: Omit<CartGame, "quantity">) => void;
+  platform: 'pc' | 'playstation' | 'xbox';
+  onGameClick?: (game: Game) => void;
 };
 
 const API_KEY = "a9da7b7a0db84f3883518ed837145728";
@@ -20,25 +24,32 @@ const API_KEY = "a9da7b7a0db84f3883518ed837145728";
 const skeletonArray = Array.from({ length: 9 });
 
 
-const ProductList: React.FC<ProductListProps> = ({ addToCart }) => {
+const ProductList: React.FC<ProductListProps> = ({ addToCart, platform, onGameClick }) => {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=9`)
+    setLoading(true);
+    let platformQuery = '';
+    if (platform === 'pc') platformQuery = '4';
+    if (platform === 'playstation') platformQuery = '18';
+    if (platform === 'xbox') platformQuery = '1';
+    fetch(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=9&platforms=${platformQuery}`)
       .then((res) => res.json())
       .then((data) => {
         setGames(data.results || []);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
+  }, [platform]);
 
   return (
-    <section className="py-18 ">
+    <section id="product-list-section" className="py-18 ">
       <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
         <h2 className="font-manrope font-bold text-3xl min-[400px]:text-4xl text-black mb-8 max-lg:text-center">
-          PC Games
+          {platform === 'pc' && 'PC Games'}
+          {platform === 'playstation' && 'PlayStation Games'}
+          {platform === 'xbox' && 'Xbox Games'}
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {loading
@@ -56,12 +67,20 @@ const ProductList: React.FC<ProductListProps> = ({ addToCart }) => {
                 </div>
               ))
             : games.map((game) => (
-                <a key={game.id} href="#" className="max-w-[384px] mx-auto">
-                  <div className="w-full max-w-sm aspect-square">
+                <a
+                  key={game.id}
+                  href="#"
+                  className="max-w-[384px] mx-auto group"
+                  onClick={e => {
+                    e.preventDefault();
+                    if (onGameClick) onGameClick(game);
+                  }}
+                >
+                  <div className="w-full max-w-sm aspect-square cursor-pointer">
                     <img
                       src={game.background_image}
                       alt={game.name}
-                      className="w-full h-full rounded-xl object-cover"
+                      className="w-full h-full rounded-xl object-cover group-hover:opacity-90 transition"
                     />
                   </div>
                   <div className="mt-5 flex items-center justify-between">
@@ -78,7 +97,8 @@ const ProductList: React.FC<ProductListProps> = ({ addToCart }) => {
                     </div>
                     <button
                       className="p-2 min-[400px]:p-4 rounded-full bg-white border border-gray-300 flex items-center justify-center group shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-cyan-700 hover:bg-gray-50"
-                      onClick={(e) => {
+                      onClick={e => {
+                        e.stopPropagation();
                         e.preventDefault();
                         addToCart({
                           id: game.id,
