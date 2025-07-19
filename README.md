@@ -15,7 +15,7 @@ A modern web app for browsing and shopping for games, featuring a beautiful glas
 
 ## Screenshots
 
-![OGameShop screenshot](../OGameShop/src/assets/GameShop.png)
+![OGameShop screenshot]![Alt text](/OGameShop/src/assets/GameShop.png "Optional Title")
 
 ## Getting Started
 

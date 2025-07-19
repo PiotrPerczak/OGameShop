@@ -10,6 +10,7 @@ interface GameSearchBarProps {
 }
 
 
+const GameSearchBar: React.FC<GameSearchBarProps> = ({ onGameClick }) => {
   // State for search input value
   const [query, setQuery] = useState("");
   // State for fetched search results
@@ -89,4 +90,6 @@ interface GameSearchBarProps {
       )}
     </div>
   );
-}
+};
+
+export default GameSearchBar;
